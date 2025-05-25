@@ -16,7 +16,8 @@ class TestAddGroup(unittest.TestCase):
     
     def test_add_group(self):
         wd = self.wd
-        wd.get("http://localhost/addressbook/")
+        self.open_home_page(wd)
+        # login
         wd.find_element(By.NAME,"user").click()
         wd.find_element(By.NAME,"user").clear()
         wd.find_element(By.NAME,"user").send_keys("admin")
@@ -24,8 +25,11 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element(By.NAME,"pass").clear()
         wd.find_element(By.NAME,"pass").send_keys("secret")
         wd.find_element(By.XPATH, "//input[@value='Login']").click()
+        # open groups page
         wd.find_element(By.LINK_TEXT, "groups").click()
+        # init group creation
         wd.find_element(By.NAME,"new").click()
+        # fill in new group form
         wd.find_element(By.NAME,"group_name").click()
         wd.find_element(By.NAME,"group_name").clear()
         wd.find_element(By.NAME,"group_name").send_keys("ddd54676")
@@ -35,9 +39,16 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element(By.NAME,"group_footer").click()
         wd.find_element(By.NAME,"group_footer").clear()
         wd.find_element(By.NAME,"group_footer").send_keys("fgjgyj")
+        # click submit for group creation
         wd.find_element(By.NAME,"submit").click()
+        # return to groups page
         wd.find_element(By.LINK_TEXT, "group page").click()
+        # logout
         wd.find_element(By.LINK_TEXT, "Logout").click()
+
+    def open_home_page(self, wd):
+        # open home page
+        wd.get("http://localhost/addressbook/")
     
     def is_element_present(self, how, what):
         try: self.wd.find_element(by=how, value=what)
@@ -45,21 +56,9 @@ class TestAddGroup(unittest.TestCase):
         return True
     
     def is_alert_present(self):
-        # try: self.wd.switch_to_alert()
         try: self.wd.switch_to.alert 
         except NoAlertPresentException as e: return False
         return True
-    
-    # def close_alert_and_get_its_text(self):
-    #     try:
-    #         alert = self.driver.switch_to_alert()
-    #         alert_text = alert.text
-    #         if self.accept_next_alert:
-    #             alert.accept()
-    #         else:
-    #             alert.dismiss()
-    #         return alert_text
-    #     finally: self.accept_next_alert = True
     
     def tearDown(self):
         self.wd.quit()

@@ -58,11 +58,15 @@ class Application:
         wd.find_element(By.NAME, "lastname").clear()
         wd.find_element(By.NAME, "lastname").send_keys(contact.lastname)
         wd.find_element(By.NAME, "submit").click()
-        self.return_to_groups_page()        
+        self.return_to_home_page()        
 
     def return_to_groups_page(self):
         wd = self.wd
         wd.find_element(By.LINK_TEXT, "group page").click()
+
+    def return_to_home_page(self):
+        wd = self.wd
+        wd.find_element(By.LINK_TEXT, "home page").click()
 
     def logout(self):
         wd = self.wd

@@ -7,13 +7,28 @@ class Application:
         self.wd = webdriver.Chrome()
         self.wd.implicitly_wait(30)
 
-    def logout(self):
+    def open_home_page(self):
         wd = self.wd
-        wd.find_element(By.LINK_TEXT, "Logout").click()
+        wd.get("http://localhost/addressbook/")
 
-    def return_to_groups_page(self):
+    def login(self, username, password):
         wd = self.wd
-        wd.find_element(By.LINK_TEXT, "group page").click()
+        self.open_home_page()
+        wd.find_element(By.NAME, "user").click()
+        wd.find_element(By.NAME, "user").clear()
+        wd.find_element(By.NAME, "user").send_keys(username)
+        wd.find_element(By.NAME, "pass").click()
+        wd.find_element(By.NAME, "pass").clear()
+        wd.find_element(By.NAME, "pass").send_keys(password)
+        wd.find_element(By.XPATH, "//input[@value='Login']").click()
+
+    def open_groups_page(self):
+        wd = self.wd
+        wd.find_element(By.LINK_TEXT, "groups").click()
+
+    def open_contacts_page(self):
+        wd = self.wd
+        wd.find_element(By.LINK_TEXT, "add new").click()
 
     def create_group(self, group):
         wd = self.wd
@@ -34,24 +49,24 @@ class Application:
         wd.find_element(By.NAME, "submit").click()
         self.return_to_groups_page()
 
-    def open_groups_page(self):
+    def create_contact(self, contact):
         wd = self.wd
-        wd.find_element(By.LINK_TEXT, "groups").click()
+        self.open_contacts_page()
+        wd.find_element(By.NAME, "firstname").click()
+        wd.find_element(By.NAME, "firstname").clear()
+        wd.find_element(By.NAME, "firstname").send_keys(contact.firstname)
+        wd.find_element(By.NAME, "lastname").clear()
+        wd.find_element(By.NAME, "lastname").send_keys(contact.lastname)
+        wd.find_element(By.NAME, "submit").click()
+        self.return_to_groups_page()        
 
-    def login(self, username, password):
+    def return_to_groups_page(self):
         wd = self.wd
-        self.open_home_page()
-        wd.find_element(By.NAME, "user").click()
-        wd.find_element(By.NAME, "user").clear()
-        wd.find_element(By.NAME, "user").send_keys(username)
-        wd.find_element(By.NAME, "pass").click()
-        wd.find_element(By.NAME, "pass").clear()
-        wd.find_element(By.NAME, "pass").send_keys(password)
-        wd.find_element(By.XPATH, "//input[@value='Login']").click()
+        wd.find_element(By.LINK_TEXT, "group page").click()
 
-    def open_home_page(self):
+    def logout(self):
         wd = self.wd
-        wd.get("http://localhost/addressbook/")
+        wd.find_element(By.LINK_TEXT, "Logout").click()
 
     def destroy(self):
         self.wd.quit()

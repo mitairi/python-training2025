@@ -11,7 +11,6 @@ from group import Group
 
 class TestAddGroup(unittest.TestCase):
     def setUp(self):
-        # self.wd = webdriver.Chrome(executable_path=r'')
         self.wd = webdriver.Chrome()
         self.wd.implicitly_wait(30)
 
@@ -50,7 +49,6 @@ class TestAddGroup(unittest.TestCase):
         # click submit for group creation
         wd.find_element(By.NAME, "submit").click()
         self.return_to_groups_page(wd)
-
 
     def open_groups_page(self, wd):
         wd.find_element(By.LINK_TEXT, "groups").click()

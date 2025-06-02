@@ -1,10 +1,8 @@
+from selenium.webdriver.chrome.webdriver import WebDriver 
+# from selenium import webdriver
 from fixture.session import SessionHelper
 from fixture.group import GroupHelper
 from fixture.contact import ContactHelper
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.webdriver import WebDriver 
-# from selenium import webdriver
-
 
 class Application:
 

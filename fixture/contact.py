@@ -18,7 +18,13 @@ class ContactHelper:
         wd.find_element(By.NAME, "lastname").clear()
         wd.find_element(By.NAME, "lastname").send_keys(contact.lastname)
         wd.find_element(By.NAME, "submit").click()
-        self.return_to_home_page()        
+        self.return_to_home_page()     
+
+    def delete_first_contact(self):
+        wd = self.app.wd
+        wd.find_element(By.NAME, "selected[]").click()
+        wd.find_element(By.XPATH , "//input[@value='Delete']").click()
+        wd.switch_to.alert.accept()
 
     def return_to_home_page(self):
         wd = self.app.wd

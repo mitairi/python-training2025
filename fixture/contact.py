@@ -5,13 +5,13 @@ class ContactHelper:
     def __init__(self, app):
         self.app = app
         
-    def open_contacts_page(self):
+    def open_new_contacts_page(self):
         wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "add new").click()
 
     def create(self, contact):
         wd = self.app.wd
-        self.open_contacts_page()
+        self.open_new_contacts_page()
         self.fill_in_contact_info(contact)
         wd.find_element(By.NAME, "submit").click()
         self.return_to_home_page()     
@@ -41,6 +41,11 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "home page").click()
 
+    def open_home_page(self):
+        wd = self.app.wd
+        wd.find_element(By.LINK_TEXT, "home").click()
+
     def count(self):
         wd = self.app.wd
-        return len(wd.find_elements(By.XPATH , "//img[@alt='Edit']"))
+        self.open_home_page()
+        return len(wd.find_elements(By.NAME, "selected[]"))

@@ -40,3 +40,7 @@ class ContactHelper:
     def return_to_home_page(self):
         wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "home page").click()
+
+    def count(self):
+        wd = self.app.wd
+        return len(wd.find_elements(By.XPATH , "//img[@alt='Edit']"))
